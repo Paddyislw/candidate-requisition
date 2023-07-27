@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTheme } from "@chakra-ui/react";
 import FromWrapper from "./FormWrapper";
 import { IFormInputProps } from "../../interface/form";
 import ReactSelect, { Props } from "react-select";
-import  '../../app/globals.css'
+import "../../app/globals.css";
 
 interface IFormSelectProps
   extends Omit<IFormInputProps, "inputProps" | "type" | "onChange" | "onBlur"> {
@@ -30,6 +30,12 @@ const FormSelect: React.FC<IFormSelectProps> = ({
 }) => {
   const theme = useTheme();
 
+  const [_document, set_document] = useState<Document | null>(null);
+
+  React.useEffect(() => {
+    set_document(document);
+  }, []);
+
   const handleChange = (value: any) => {
     onChange && onChange(name, value?.value);
   };
@@ -55,7 +61,7 @@ const FormSelect: React.FC<IFormSelectProps> = ({
         options={options}
         menuPlacement="bottom"
         menuPosition="fixed"
-        menuPortalTarget={document.querySelector('body')}
+        menuPortalTarget={_document?.querySelector("body")}
         styles={{
           container: (base) => ({
             ...base,
@@ -75,14 +81,14 @@ const FormSelect: React.FC<IFormSelectProps> = ({
               : error
               ? `1px solid red`
               : "1px solid #c0bcd7",
-            backgroundColor:'#ffffff',
+            backgroundColor: "#ffffff",
             borderRadius: "10px",
             fontSize: ".875rem",
             fontWeight: "500",
             "&:hover": {
               border: `1px solid #cbd5e0`,
             },
-           // zIndex: 1,
+            // zIndex: 1,
           }),
           valueContainer: (base) => ({
             ...base,
@@ -93,7 +99,7 @@ const FormSelect: React.FC<IFormSelectProps> = ({
             fontSize: ".875rem",
             fontWeight: "500",
           }),
-         }}
+        }}
         {...selectProps}
       />
       {children}
