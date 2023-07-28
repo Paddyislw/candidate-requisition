@@ -79,7 +79,7 @@ const FormSelect: React.FC<IFormSelectProps> = ({
             border: isFocused
               ? `1px solid blue`
               : error
-              ? `1px solid red`
+              ? `2px solid black`
               : "1px solid #c0bcd7",
             backgroundColor: "#ffffff",
             borderRadius: "10px",
